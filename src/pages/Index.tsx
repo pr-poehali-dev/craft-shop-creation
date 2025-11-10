@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -93,6 +94,7 @@ const categories = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string[]>([]);
@@ -242,7 +244,7 @@ const Index = () => {
                           <span className="text-lg font-semibold">Итого:</span>
                           <span className="text-2xl font-bold text-primary">{totalPrice} ₽</span>
                         </div>
-                        <Button className="w-full" size="lg">
+                        <Button className="w-full" size="lg" onClick={() => navigate('/checkout')}>
                           Оформить заказ
                         </Button>
                       </div>
@@ -417,10 +419,10 @@ const Index = () => {
                 {filteredProducts.map((product, index) => (
                   <Card 
                     key={product.id} 
-                    className="group hover:shadow-xl transition-all duration-300 animate-fade-in overflow-hidden"
+                    className="group hover:shadow-xl transition-all duration-300 animate-fade-in overflow-hidden cursor-pointer"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="relative overflow-hidden">
+                    <div className="relative overflow-hidden" onClick={() => navigate(`/product/${product.id}`)}>
                       <img 
                         src={product.image} 
                         alt={product.name} 
@@ -434,7 +436,7 @@ const Index = () => {
                       <Badge variant="outline" className="mb-2 text-xs">
                         {product.category}
                       </Badge>
-                      <h4 className="font-semibold mb-2 line-clamp-2">{product.name}</h4>
+                      <h4 className="font-semibold mb-2 line-clamp-2" onClick={() => navigate(`/product/${product.id}`)}>{product.name}</h4>
                       <p className="text-xs text-muted-foreground mb-3">
                         {product.technique}
                       </p>
@@ -454,6 +456,116 @@ const Index = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="workshops" className="py-16 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold mb-4">Мастер-классы и уроки</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Научитесь новым техникам рукоделия с нашими пошаговыми мастер-классами
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="group hover:shadow-xl transition-all duration-300 animate-fade-in overflow-hidden">
+              <div className="relative overflow-hidden">
+                <img 
+                  src="https://cdn.poehali.dev/projects/4cfb1d4b-4e27-4c8f-8e6a-3c36017e202d/files/c2036972-5f18-463d-b143-3bdb5b030caa.jpg"
+                  alt="Вышивка для начинающих"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <Badge className="absolute top-3 right-3 bg-primary">
+                  Бесплатно
+                </Badge>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge variant="outline" className="text-xs">Начальный</Badge>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Icon name="Clock" size={14} />
+                    45 мин
+                  </span>
+                </div>
+                <h4 className="text-xl font-bold mb-2">Вышивка крестом для начинающих</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Освойте базовые стежки и создайте свою первую вышивку
+                </p>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Play" size={16} className="mr-2" />
+                  Начать обучение
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-xl transition-all duration-300 animate-fade-in overflow-hidden" style={{ animationDelay: '100ms' }}>
+              <div className="relative overflow-hidden">
+                <img 
+                  src="https://cdn.poehali.dev/projects/4cfb1d4b-4e27-4c8f-8e6a-3c36017e202d/files/467d5ab2-1d42-4212-955a-ec2658bd77ab.jpg"
+                  alt="Вязание спицами"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <Badge className="absolute top-3 right-3 bg-primary">
+                  Бесплатно
+                </Badge>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge variant="outline" className="text-xs">Средний</Badge>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Icon name="Clock" size={14} />
+                    1 ч 20 мин
+                  </span>
+                </div>
+                <h4 className="text-xl font-bold mb-2">Вязание шарфа спицами</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Свяжите стильный шарф с помощью простых узоров
+                </p>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Play" size={16} className="mr-2" />
+                  Начать обучение
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-xl transition-all duration-300 animate-fade-in overflow-hidden" style={{ animationDelay: '200ms' }}>
+              <div className="relative overflow-hidden">
+                <img 
+                  src="https://cdn.poehali.dev/projects/4cfb1d4b-4e27-4c8f-8e6a-3c36017e202d/files/2d43fdc1-78d3-417c-8275-43cb238965fd.jpg"
+                  alt="Пэчворк техника"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <Badge className="absolute top-3 right-3 bg-accent text-primary">
+                  Новинка
+                </Badge>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge variant="outline" className="text-xs">Продвинутый</Badge>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Icon name="Clock" size={14} />
+                    2 ч
+                  </span>
+                </div>
+                <h4 className="text-xl font-bold mb-2">Лоскутное одеяло в стиле пэчворк</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Создайте уникальное одеяло из лоскутков ткани
+                </p>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Play" size={16} className="mr-2" />
+                  Начать обучение
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button size="lg" variant="outline">
+              Смотреть все мастер-классы
+              <Icon name="ArrowRight" size={20} className="ml-2" />
+            </Button>
           </div>
         </div>
       </section>
